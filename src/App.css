@@ -82,3 +82,18 @@ main{
   padding: 10px 0;
   margin: 0 3%;
 }
+.BtnBlock{
+  display: flex;
+  gap: 15px;
+}
+.task-btn{
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  height: 35px;
+  width: 85px;
+  font-size: 14px;
+  /* font-weight: 600; */
+  border: 1px solid #000;
+  border-radius: 8px;
+}

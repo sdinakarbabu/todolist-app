@@ -17,8 +17,8 @@ function App() {
     setTodos([...todos , Data]) // setting new data
     document.getElementById("searchInput").value = ''; // Input Clearing
   }
-  localStorage.setItem("todolist",JSON.stringify(todos)) // Storing data
-  
+  localStorage.setItem("todolist",JSON.stringify(todos)); // Storing data
+
   return (
     <main>
       <header className="headerContainer">
@@ -36,13 +36,40 @@ function App() {
           <p className='task'>Task Name</p>
           <p className='task'>Date</p>
           <p className='task'>Time</p>
+          <p className='task'>Delete/Edit</p>
         </li>
         {
-            (datafetch == null)?<li>No Data </li> : todos.map((each)=>{
+            (datafetch == '')?<li className='eachListBlock' style={{display:'flex',justifyContent:'center',alignItems:'center'}}><p className='task' style={{color:'#fff',fontWeight:'bold',fontSize:'28px',paddingLeft:'8em'}}>No Data</p> </li> : todos.map((each)=>{
               return <li className='eachListBlock'>
                 <p className='task'>{each.taskName}</p>
                 <p className='task'>{each.time}</p>
                 <p className='task'>{each.date}</p>
+                <p className='task BtnBlock'>
+                  <button className='task-btn' onClick={()=>{
+                    var getData = todos.filter((eachs)=>{
+                      var itemName = eachs.taskName;
+                      return itemName !== each.taskName;
+                    })
+                    setTodos(getData)
+                  }}>Delete</button>
+                  <button className='task-btn' onClick={()=>{
+                    var UpdatedTask = prompt();
+                    var getDataFiltered=[]
+                    todos.forEach(element => {
+                      if(each.taskName === element.taskName){
+                        element.taskName = UpdatedTask;
+                        var updateDate = new Date();
+                        element.time = updateDate.toLocaleTimeString();
+                        element.date = updateDate.toLocaleDateString();
+                        getDataFiltered.push(element)
+                      }
+                      else{
+                        getDataFiltered.push(element)
+                      }
+                    });
+                    setTodos(getDataFiltered)
+                  }}>Edit</button>
+                </p>
               </li>
             })
         }
